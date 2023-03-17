@@ -1,0 +1,17 @@
+<configuration>
+  <conversionRule conversionWord="highlight"
+    converterClass="pl.delukesoft.rewardprocessor.utility.logback.HighlightingLogbackMessageColoring"/>
+
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{h:mm a} %highlight(%-5level) - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="pl.delukesoft.mainserver" level="INFO"/>
+
+  <root level="ERROR">
+    <appender-ref ref="CONSOLE"/>
+  </root>
+
+</configuration>

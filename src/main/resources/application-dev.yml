@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect
+        format_sql: 'false'
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:mysql://reward_db:3306/reward?useSSL=false&useUnicode=true&character_set_server=utf8mb4&allowPublicKeyRetrieval=true&serverTimezone=UTC

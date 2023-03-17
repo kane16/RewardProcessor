@@ -1,0 +1,35 @@
+services:
+  rewardserver:
+    image: rewardserver:1.0.0
+    restart: always
+    environment:
+      - ACTIVE_PROFILE=${REWARD_ACTIVE_PROFILE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 8080:8080
+    depends_on:
+      reward_db:
+        condition: service_healthy
+  reward_db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=reward
+    volumes:
+      - mysqldata:/var/lib/mysql
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=pass --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 2s
+      retries: 5
+volumes:
+  mysqldata:
+networks:
+  blog_net:
+    driver: bridge
