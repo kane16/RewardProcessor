@@ -1,11 +1,11 @@
 package pl.delukesoft.rewardprocessor.transaction.domain;
 
-import jakarta.persistence.OptimisticLockException;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import pl.delukesoft.rewardprocessor.transaction.exception.DbOperationFailedException;
 import pl.delukesoft.rewardprocessor.transaction.exception.InvalidTransactionState;
 
 @Service
@@ -17,7 +17,11 @@ public class TransactionService {
   @Transactional
   public Transaction createTransaction(Transaction transaction) {
     transaction.setId(null);
-    return transactionRepository.save(transaction);
+    try {
+      return transactionRepository.save(transaction);
+    } catch (Exception exc) {
+      throw new DbOperationFailedException();
+    }
   }
 
   @Transactional
@@ -26,6 +30,8 @@ public class TransactionService {
       return transactionRepository.save(transaction);
     } catch (OptimisticLockingFailureException exception) {
       throw new InvalidTransactionState(exception);
+    } catch (Exception exc) {
+      throw new DbOperationFailedException();
     }
   }
 

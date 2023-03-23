@@ -6,6 +6,7 @@ services:
       - ACTIVE_PROFILE=${REWARD_ACTIVE_PROFILE}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DOCS_ENABLED=${DOCS_ENABLED}
     ports:
       - 8080:8080
     depends_on:

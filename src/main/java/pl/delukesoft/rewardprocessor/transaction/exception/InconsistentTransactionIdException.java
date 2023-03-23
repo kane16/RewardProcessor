@@ -6,6 +6,6 @@ import pl.delukesoft.rewardprocessor.utility.exception.LoggableResponseStatusExc
 public class InconsistentTransactionIdException extends LoggableResponseStatusException {
 
   public InconsistentTransactionIdException() {
-    super(HttpStatus.BAD_REQUEST, "Inconsistent id for transaction provided. Id from header doesn't match one from body.");
+    super(HttpStatus.UNPROCESSABLE_ENTITY, "Inconsistent id for transaction provided. Id from header doesn't match one from body.");
   }
 }

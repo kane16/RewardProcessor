@@ -26,9 +26,10 @@ dependencies {
   annotationProcessor("org.projectlombok:lombok")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   implementation("javax.xml.bind:jaxb-api:2.3.0")
-  implementation("javax.validation:validation-api:2.0.1.Final")
+  implementation("jakarta.validation:jakarta.validation-api:3.0.2")
   runtimeOnly("com.h2database:h2")
   runtimeOnly("mysql:mysql-connector-java:8.0.32")
+  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
 }
 
 tasks.withType<Test> {

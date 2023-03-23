@@ -1,7 +1,13 @@
 package pl.delukesoft.rewardprocessor.reward.controller;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +21,13 @@ public class RewardController {
 
   private final RewardFacade rewardFacade;
 
+
+  @Operation(summary = "Calculate reward for given customer 3 months back")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Calculated reward is returned",
+          content = {@Content(mediaType = "application/json",
+              schema = @Schema(implementation = RewardDTO.class))})
+  })
   @GetMapping("{customerId}")
   public RewardDTO getTotalRewardFromLastThreeMonths(
       @NotNull @Min(0L) @PathVariable("customerId") Long customerId
@@ -22,6 +35,12 @@ public class RewardController {
     return rewardFacade.getTotalRewardFromNumberOfMonths(3, customerId);
   }
 
+  @Operation(summary = "Calculate reward for given customer and given number of months")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Calculated reward is returned",
+          content = {@Content(mediaType = "application/json",
+              schema = @Schema(implementation = RewardDTO.class))})
+  })
   @GetMapping("{customerId}/period/months/{numberOfMonths}")
   public RewardDTO getTotalRewardForCustomNumberOfMonths(
       @NotNull @Min(0L) @PathVariable("customerId") Long customerId,

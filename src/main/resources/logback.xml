@@ -8,7 +8,7 @@
     </encoder>
   </appender>
 
-  <logger name="pl.delukesoft.mainserver" level="INFO"/>
+  <logger name="pl.delukesoft.rewardprocessor" level="INFO"/>
 
   <root level="ERROR">
     <appender-ref ref="CONSOLE"/>
